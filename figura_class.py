@@ -8,6 +8,9 @@ class Pelota:
         self.color = color
         self.vx = vx
         self.vy = vy
+        self.contadorDerecha = 0
+        self.contadorIzquierda = 0
+        self.font = font = pg.font.Font(None,40) #para mostrar marcador
 
     def dibujar(self,pantalla):
         pg.draw.circle(pantalla,self.color,(self.pos_x, self.pos_y), self.radio)
@@ -19,10 +22,49 @@ class Pelota:
         if self.pos_y >= y_max-self.radio or self.pos_y <0+self.radio:
             self.vy *= -1
 
-        if self.pos_x >= x_max+self.radio*12 or self.pos_x < 0-self.radio*12:
-            #contar el gol
+        if self.pos_x >= x_max+self.radio*12: 
+            self.contadorIzquierda +=1
             self.vx *= -1
             self.vy *= -1
+            
+        if self.pos_x < 0-self.radio*12:
+            self.contadorDerecha +=1
+            self.vx *= -1
+            self.vy *= -1
+            
+    def marcador(self, pantalla_principal):
+        marcadorIzq = self.font.render(str(self.contadorDerecha),0, (0, 0, 0))
+        marcadorDer = self.font.render(str(self.contadorIzquierda),0, (0, 0, 0))
+        pantalla_principal.blit(marcadorDer, (200,30))
+        pantalla_principal.blit(marcadorIzq, (600,30))
+
+    def posicionX(self):
+        return self.pos_x + self.radio
+    
+    def posicionY(self):
+        return self.pos_y + self.radio
+
+    def izquierda(self):
+        if self.pos_x < 400:
+            return True
+        return False
+
+    def derecha(self):
+        if self.pos_x > 400:
+            return True
+        return False  
+    
+    def arriba(self):
+        if self.pos_x < 300:
+            return True
+        return False  
+
+    def abajo(self):
+        if self.pos_x > 300:
+            return True
+        return False
+
+
 
 class Raqueta:
     def __init__(self, pos_x,pos_y,w=30,h=100,color=(255,255,255), vx=1, vy=1):
