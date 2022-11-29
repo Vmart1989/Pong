@@ -17,26 +17,15 @@ while not game_over:
         if evento.type == pg.QUIT:
            game_over = True
 
-        """""""""
-        #mover raqueta
-        if evento.type == pg.KEYDOWN:
-            if evento.key == pg.K_UP:
-                raqueta1.pos_y -= 20
-            elif evento.key == pg.K_DOWN:
-                raqueta1.pos_y += 20
-        """""
-
-        estado_teclas = pg.key.get_pressed()
-
-        if estado_teclas[pg.K_UP] == True:
-            raqueta1.pos_y -= 1
-        if estado_teclas[pg.K_DOWN] == True:
-            raqueta1.pos_y += 1
-
+    #p1 = (400,0)
+    #p2 = (400,400)
 
     pantalla_principal.fill((158, 95, 39))
     pg.draw.line(pantalla_principal,(255,255,255), (400,0), (400,600), width=2)
+    #pg.draw.lines(pantalla_principal,(255,255,255), False, (p1, p2), width=2)
     pelota.dibujar(pantalla_principal)
     raqueta1.dibujar(pantalla_principal)
+    raqueta1.mover(pantalla_principal)
     raqueta2.dibujar(pantalla_principal)
+    #raqueta2.mover(pantalla_principal)
     pg.display.flip()
