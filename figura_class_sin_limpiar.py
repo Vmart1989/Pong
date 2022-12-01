@@ -39,7 +39,21 @@ class Pelota:
 
             self.vx *= -1
             self.vy *= -1
-     
+    '''''''''
+    def choque(self,r1, r2): #logica de choque
+        if self.derecha >= r2.izquierda and\
+            self.izquierda <= r2.derecha and\
+            self.abajo >= r2.arriba and\
+            self.arriba <= r2.abajo:
+                self.vx *= -1
+        
+        if self.derecha >= r1.izquierda and\
+            self.izquierda <= r1.derecha and\
+            self.abajo >= r1.arriba and\
+            self.arriba <= r1.abajo:
+                self.vx *= -1
+        '''''''''
+            
     def choque(self,*raquetas): #*funcion epecial *args que recibe multiples parametros
         for r in raquetas:
             if self.derecha >= r.izquierda and\
