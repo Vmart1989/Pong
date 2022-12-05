@@ -1,5 +1,11 @@
-from pantallas import Partida
+from pantallas import Partida, Menu
 
-juego = Partida() #creamos objeto de la clase Partida
 
-juego.bucle_fotograma() #llamamos al bucle de fotograma
+menu = Menu()
+mensaje = menu.bucle_pantalla()
+
+if mensaje == 'jugar':
+    juego = Partida()
+    juego.bucle_fotograma()
+
+#TAREA CREAR OTRA VENTANA QUE DIGA GANADOR Y EL MARCADOR

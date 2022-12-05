@@ -8,8 +8,6 @@ class Pelota:
         self.color = color
         self.vx = vx
         self.vy = vy
-        self.contadorDerecha = 0
-        self.contadorIzquierda = 0
         self.font = font = pg.font.Font(None,40) #para mostrar marcador
 
     def dibujar(self,pantalla):
@@ -23,22 +21,22 @@ class Pelota:
             self.vy *= -1
 
         if self.pos_x >= x_max+self.radio*12: 
-            self.contadorIzquierda +=1
-            #que retorne el balon al centro al marcar
             self.pos_x = x_max//2
             self.pos_y = y_max//2
 
             self.vx *= -1
             self.vy *= -1
+
+            return "right"
 
         if self.pos_x < 0-self.radio*12:
-            self.contadorDerecha +=1
-             #que retorne el balon al centro al marcar
             self.pos_x = x_max//2
             self.pos_y = y_max//2
 
             self.vx *= -1
             self.vy *= -1
+
+            return "left"
      
     def choque(self,*raquetas): #*funcion epecial *args que recibe multiples parametros
         for r in raquetas:
