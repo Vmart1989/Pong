@@ -1,7 +1,8 @@
 import pygame as pg
+from utils import GRIS
 
 class Pelota:
-    def __init__(self, pos_x,pos_y,radio=12,color=(218, 241, 47), vx=1, vy=1):
+    def __init__(self, pos_x,pos_y,radio=12,color=(GRIS), vx=1, vy=1):
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.radio = radio
@@ -67,8 +68,9 @@ class Pelota:
     def abajo(self):
         return self.pos_y + self.radio
 
+
 class Raqueta:
-    def __init__(self, pos_x,pos_y,w=30,h=100,color=(255,255,255), vx=1, vy=1):
+    def __init__(self, pos_x,pos_y,w=30,h=100,color=(234, 230, 229), vx=1, vy=1):
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.w = w
