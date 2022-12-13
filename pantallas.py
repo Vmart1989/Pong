@@ -3,13 +3,16 @@ from figura_class import Raqueta, Pelota
 from utils import * #traigo las variables del archivo __init__ en utils folder
 
 class Partida:
-    def __init__(self):
-        self.pantalla_principal = pg.display.set_mode((ANCHO,ALTO))
-        pg.display.set_caption("Pong")
-        self.tasa_refresco = pg.time.Clock()
-        self.pelota = Pelota(ANCHO//2, ALTO//2,vx=1, vy=1)
+    def __init__(self, pantalla, refresco): #parametros inicializados en scene_controller.py
+        self.pantalla_principal = pantalla
+        self.tasa_refresco = refresco
+        self.pelota = Pelota(ANCHO//2, ALTO//2,vx=2, vy=2)
+        
         self.raqueta1 = Raqueta(10,ALTO//2,vy=2) 
-        self.raqueta2 = Raqueta(ANCHO-10,ALTO//2,vy=2)
+        self.raqueta1.direccion = 'izqda'
+        self.raqueta2 = Raqueta(ANCHO-20,ALTO//2,vy=2)
+        self.raqueta2.direccion = 'drcha'
+        
         self.font = font = pg.font.Font("fonts/PressStart.ttf",10) #None es el estilo de fuente y 30 el tamano
         self.fuenteTemp = pg.font.Font('fonts\PressStart.ttf', 20)
         self.marcador1 = 0
@@ -17,8 +20,9 @@ class Partida:
         self.quienMarco = ""
         self.temporizador = TIEMPO_LIMITE #en milisegundos(20 segundos que incia en 15)
         self.sonido = pg.mixer.Sound("sound/pelota.mp3")
+        self.sonidopunto = pg.mixer.Sound("sound/point.wav")
 
-    def bucle_fotograma(self):
+    def bucle_pantalla(self):
         #reinicio de estos parametros para volver a jugar:
         self.temporizador = TIEMPO_LIMITE
         self.marcador1 = 0
@@ -105,11 +109,9 @@ class Partida:
             return GRIS_OSCURO
 
 class Menu:
-    def __init__(self):
-        self.pantalla_principal = pg.display.set_mode( (ANCHO,ALTO) )
-        pg.display.set_caption('Menu')
-        self.tasa_refresco = pg.time.Clock()
-
+    def __init__(self, pantalla, refresco):
+        self.pantalla_principal = pantalla
+        self.tasa_refresco = refresco
         self.imagenFondo = pg.image.load('images/fondomenu.jpg')
         self.fuenteMenu = pg.font.Font('fonts/PressStart.ttf',20)
         self.fuentePong = pg.font.Font('fonts/PressStart.ttf',40)
@@ -130,8 +132,10 @@ class Menu:
                 if evento.type == pg.KEYDOWN:
                     if evento.key == pg.K_RETURN:
                         game_over = True
+                        return "jugar"
                     elif evento.key == pg.K_r:
                         game_over = True
+                        return "records"
 
 
             self.pantalla_principal.blit(self.imagenFondo,(0,0))
@@ -145,18 +149,18 @@ class Menu:
         self.musica.stop()
 
 class Resultado:
-    def __init__(self):
-        self.pantalla_principal = pg.display.set_mode( (ANCHO,ALTO) )
-        pg.display.set_caption('Game Over')
-        self.tasa_refresco = pg.time.Clock()
+    def __init__(self, pantalla, refresco):
+        self.pantalla_principal = pantalla
+        self.tasa_refresco = refresco
 
         self.imagenFondo = pg.image.load('images/fondomenu.jpg')
         self.fuenteResultado = pg.font.Font('fonts/PressStart.ttf',20)
         self.fuenteGameOver = pg.font.Font('fonts/PressStart.ttf',40)
         self.resultado = ""
+        #self.sonido = pg.mixer.Sound('sound/resultado.mp3')
 
 
-    def bucle_resultado(self):
+    def bucle_pantalla(self):
         game_over = False
 
         while not game_over:
@@ -182,14 +186,13 @@ class Resultado:
         self.resultado = resultado
                            
 class Records:
-    def __init__(self):
-        self.pantalla_principal = pg.display.set_mode( (ANCHO,ALTO) )
-        pg.display.set_caption('Records')
-        self.tasa_refresco = pg.time.Clock()
+    def __init__(self, pantalla, refresco):
+        self.pantalla_principal = pantalla
+        self.tasa_refresco = refresco
         self.imagenFondo = pg.image.load('images/fondomenu.jpg')
         self.fuenteResultado = pg.font.Font('fonts/PressStart.ttf',20)
         
-    def bucle_records(self):
+    def bucle_pantalla(self):
         game_over = False
 
         while not game_over:
